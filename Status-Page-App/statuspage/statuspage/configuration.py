@@ -12,9 +12,9 @@ ALLOWED_HOSTS = ['*']
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
     'NAME': 'status-page',         # Database name
-    'USER': 'lavi',               # PostgreSQL username
-    'PASSWORD': 'Aa123456123456',           # PostgreSQL password
-    'HOST': '172.31.27.9',      # Database server
+    'USER': 'admin',               # PostgreSQL username
+    'PASSWORD': 'Server111',           # PostgreSQL password
+    'HOST': 'terraform-20230221141644368000000001.caherngd68rh.us-east-1.rds.amazonaws.com',      # Database server
     'PORT': '',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
 }
@@ -23,7 +23,7 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': '172.31.27.9',
+        'HOST': 'status-page-redis-cache-cluster.3kisog.clustercfg.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],

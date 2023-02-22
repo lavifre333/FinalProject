@@ -12,4 +12,4 @@ COPY . .
 
 RUN bash ./upgrade.sh && python -m venv /opt/status-page/venv && python ./statuspage/manage.py createsuperuser --no-input --username test
 
-CMD [ "python", "./statuspage/manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
+CMD [ "python", "./statuspage/manage.py", "runserver", "0.0.0.0:80", "--insecure"]

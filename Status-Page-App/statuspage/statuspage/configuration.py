@@ -12,8 +12,8 @@ ALLOWED_HOSTS = ['*']
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
     'NAME': 'status-page',         # Database name
-    'USER': 'admin',               # PostgreSQL username
-    'PASSWORD': 'Server111',           # PostgreSQL password
+    'USER': '',               # PostgreSQL username
+    'PASSWORD': '',           # PostgreSQL password
     'HOST': 'terraform-20230221141644368000000001.caherngd68rh.us-east-1.rds.amazonaws.com',      # Database server
     'PORT': '',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age

@@ -162,3 +162,62 @@ resource "aws_eip" "nat_eip_1" {
 resource "aws_eip" "nat_eip_2" {
   vpc = true
 }
+
+####################################################################################
+# Create aPOstgreSQL RDS
+####################################################################################
+
+# Set subnet group for the RDS
+ resource "aws_db_subnet_group" "statuspage_db_subnet_group" {
+  name       = "main"
+  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+
+  tags = {
+    Name = "status-page DB subnet group"
+  }
+}
+
+# Set Postgres RDS
+ resource "aws_db_instance" "status_page_db" {
+  allocated_storage    = 10
+  db_name              = "StatusPageDB"
+  engine               = "postgres"
+  engine_version       = "14"
+  db_subnet_group_name =  aws_db_subnet_group.statuspage_db_subnet_group.id
+  multi_az            = true
+  instance_class       = "db.t3.micro"
+  username             = "foo"
+  password             = "foobarbaz"
+  skip_final_snapshot  = true
+}
+
+####################################################################################
+# Create redis elsastic cache
+####################################################################################
+
+resource "aws_elasticache_subnet_group" "status_page_redis_subnet_group" {
+  name       = "status-page-redis-subnet-group"
+  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  tags = {
+    Name = "Status-Page-redis-cache-subnet-group"
+  }
+}
+
+resource "aws_elasticache_replication_group" "status-page-redis-cache-db" {
+  replication_group_id       = "status-page-redis-cache-cluster"
+  description                = "radis elastic cache for status page app"
+  engine                     = "redis"
+  engine_version             = "4.0.10"
+  subnet_group_name          = aws_elasticache_subnet_group.status_page_redis_subnet_group.id
+  node_type                  = "cache.t2.small"
+  port                       = 6379
+  multi_az_enabled           = true
+  automatic_failover_enabled = true
+
+  num_node_groups         = 2
+  replicas_per_node_group = 1
+
+   tags = {
+    Name = "Status-Page-redis-cache-cluster"
+  }
+}

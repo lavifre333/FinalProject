@@ -40,13 +40,16 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     
+    
+    - name: Check out code
+      uses: actions/checkout@v2
     - name: Build, Tag and Push Image to ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG Status-Page-App/Dockerfile
+        docker build -t $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG ./Status-Page-App/Dockerfile
         docker push $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
     
     - name: Download Task Definition

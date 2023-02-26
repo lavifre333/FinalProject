@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  CONTAINER_NAME: project
+  CONTAINER_NAME: status-page
   ECR_REGISTRY: 132737078540.dkr.ecr.us-east-1.amazonaws.com/status-page-app-image
   ECR_REPO: status-page-app-image
   ECS_CLUSTER: FinalProjectCluster
@@ -40,6 +40,9 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     
+    
+    - name: Check out code
+      uses: actions/checkout@v2
     - name: Build, Tag and Push Image to ECR
       id: build-image
       env:

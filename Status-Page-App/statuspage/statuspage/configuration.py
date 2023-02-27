@@ -11,10 +11,10 @@ ALLOWED_HOSTS = ['*']
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'status-page',         # Database name
-    'USER': '',               # PostgreSQL username
-    'PASSWORD': '',           # PostgreSQL password
-    'HOST': 'terraform-20230221141644368000000001.caherngd68rh.us-east-1.rds.amazonaws.com',      # Database server
+    'NAME': 'StatusPageDB',         # Database name
+    'USER': ${{ secrets.RDS_USER_NAME }},               # PostgreSQL username
+    'PASSWORD': ${{ secrets.RDS_PASSWORD }},           # PostgreSQL password
+    'HOST':  ${{ secrets.RDS_END_POINT }},      # Database server
     'PORT': '',               # Database port (leave blank for default)
     'CONN_MAX_AGE': 300,      # Max database connection age
 }
@@ -23,7 +23,7 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'status-page-redis-cache-cluster.3kisog.clustercfg.use1.cache.amazonaws.com',
+        'HOST': ${{ secrets.ELASTICACHE_ENDPOINT }},
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
         # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],

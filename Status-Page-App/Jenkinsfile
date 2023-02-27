@@ -28,7 +28,6 @@ pipeline
             {
                 sh 'echo "Building Docker Image..."'
                 sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .\n/Status-Page-App'
-'
             }
         }
         stage('Push Image to ECR')

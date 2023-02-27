@@ -27,7 +27,8 @@ pipeline
             steps
             {
                 sh 'echo "Building Docker Image..."'
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./Status-Page-App
+'
             }
         }
         stage('Push Image to ECR')

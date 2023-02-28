@@ -14,15 +14,11 @@ pipeline
     {
         stage('Decrypt Github Repository') 
         {
-            environment 
+            withCredentials([file(credentialsId: 'cryptkey', variable: 'CRYPT_KEY')]) 
             {
-            SECRET_FILE_ID = credentials('git-crypt-key')
+            sh "git-crypt unlock ${CRYPT_KEY}"
             }
-            steps 
-            {
-                sh "git-crypt unlock ${SECRET_FILE_ID}"
-            }
-        }     
+        }  
         stage('AWS Log In')
         {
             agent any

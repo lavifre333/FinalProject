@@ -11,8 +11,8 @@ ALLOWED_HOSTS = ['*']
 # PostgreSQL database configuration. See the Django documentation for a complete list of available parameters:
 #   https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASE = {
-    'NAME': 'status-page',         # Database name
-    'USER': 'admin',               # PostgreSQL username
+    'NAME': 'StatusPageDB',         # Database name
+    'USER': 'foo',               # PostgreSQL username
     'PASSWORD': 'Server111',           # PostgreSQL password
     'HOST': 'terraform-20230221141644368000000001.caherngd68rh.us-east-1.rds.amazonaws.com',      # Database server
     'PORT': '',               # Database port (leave blank for default)
@@ -23,11 +23,11 @@ DATABASE = {
 # for each. Full connection details are required.
 REDIS = {
     'tasks': {
-        'HOST': 'status-page-redis-cache-cluster.3kisog.clustercfg.use1.cache.amazonaws.com',
+        'HOST': 'one-redis-instance.3kisog.ng.0001.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
-        # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
-        # 'SENTINEL_SERVICE': 'status-page',
+        #'SENTINELS': [('tatus-page-redis-cache-cluster.3kisog.clustercfg.use1.cache.amazonaws.com', 6379)],
+        #'SENTINEL_SERVICE': 'status-page',
         'PASSWORD': '',
         'DATABASE': 0,
         'SSL': False,
@@ -36,11 +36,11 @@ REDIS = {
         # 'INSECURE_SKIP_TLS_VERIFY': False,
     },
     'caching': {
-        'HOST': '172.31.27.9',
+        'HOST': 'one-redis-instance.3kisog.ng.0001.use1.cache.amazonaws.com',
         'PORT': 6379,
         # Comment out `HOST` and `PORT` lines and uncomment the following if using Redis Sentinel
-        # 'SENTINELS': [('mysentinel.redis.example.com', 6379)],
-        # 'SENTINEL_SERVICE': 'netbox',
+        #'SENTINELS': [('status-page-redis-cache-cluster.3kisog.clustercfg.use1.cache.amazonaws.com', 6379)],
+        #'SENTINEL_SERVICE': 'netbox',
         'PASSWORD': '',
         'DATABASE': 1,
         'SSL': False,

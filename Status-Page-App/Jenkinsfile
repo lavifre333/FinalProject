@@ -14,9 +14,12 @@ pipeline
     {
         stage('Decrypt Github Repository') 
         {
-            withCredentials([file(credentialsId: 'cryptkey', variable: 'CRYPT_KEY')]) 
+            steps
             {
-            sh "git-crypt unlock ${CRYPT_KEY}"
+                withCredentials([file(credentialsId: 'cryptkey', variable: 'CRYPT_KEY')]) 
+                {
+                sh "git-crypt unlock ${CRYPT_KEY}"
+                }
             }
         }  
         stage('AWS Log In')

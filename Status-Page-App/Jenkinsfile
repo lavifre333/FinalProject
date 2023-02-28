@@ -16,7 +16,7 @@ pipeline
         {
             steps
             {
-                withCredentials([file(credentialsId: 'cryptkey', variable: 'CRYPT_KEY')]) 
+                withCredentials([file(credentialsId: 'gitcryptkey', variable: 'CRYPT_KEY')]) 
                 {
                 sh "git-crypt unlock ${CRYPT_KEY}"
                 }

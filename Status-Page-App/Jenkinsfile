@@ -16,7 +16,7 @@ pipeline
         {
             environment 
             {
-            SECRET_FILE_ID = credentials('cryptkey')
+            SECRET_FILE_ID = credentials('git-crypt-key')
             }
             steps 
             {

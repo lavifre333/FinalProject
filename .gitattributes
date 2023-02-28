@@ -1,5 +1,5 @@
 secretfile filter=git-crypt diff=git-crypt
 
-Status-page-app/statuspage/statuspage/configuration.py filter=git-crypt diff=git-crypt
+Status-Page-App/statuspage/statuspage/configuration.py filter=git-crypt diff=git-crypt
 
 secretdir/** filter=git-crypt diff=git-crypt

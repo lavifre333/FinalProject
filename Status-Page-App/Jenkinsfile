@@ -1,0 +1,56 @@
+pipeline
+{
+    agent any
+    environment 
+    {
+        AWS_ACCOUNT_ID="132737078540"
+        AWS_DEFAULT_REGION="us-east-1"
+        IMAGE_TAG="latest"
+        IMAGE_NAME="status-page"
+        REPOSITORY_URI="132737078540.dkr.ecr.us-east-1.amazonaws.com/status-page-app-image"
+    } 
+
+    stages
+    {
+        stage('Decrypt Github Repository') 
+        {
+            steps
+            {
+                withCredentials([file(credentialsId: 'gitcryptkey', variable: 'CRYPT_KEY')]) 
+                {
+                sh "git-crypt unlock ${CRYPT_KEY}"
+                }
+            }
+        }  
+        stage('AWS Log In')
+        {
+            agent any
+            steps
+            {
+                sh 'echo "Logging in to AWS..."'
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 132737078540.dkr.ecr.us-east-1.amazonaws.com'
+            }
+        }
+        stage("Building Image")
+        {
+            agent any
+            steps
+            {
+                sh 'echo "Building Docker Image..."'
+                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./Status-Page-App'
+            }
+        }
+        stage('Push Image to ECR')
+        {
+            agent any
+            steps
+            {
+                sh 'echo "Pushing Image to ECR..."'
+                sh 'docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${IMAGE_TAG}'
+                sh 'docker push ${REPOSITORY_URI}:${IMAGE_TAG}'
+                
+            }
+        }
+
+    }
+}

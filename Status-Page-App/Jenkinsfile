@@ -11,17 +11,7 @@ pipeline
     } 
 
     stages
-    {
-        stage('Decrypt Github Repository') 
-        {
-            steps
-            {
-                withCredentials([file(credentialsId: 'gitcryptkey', variable: 'CRYPT_KEY')]) 
-                {
-                sh "git-crypt unlock ${CRYPT_KEY}"
-                }
-            }
-        }  
+    { 
         stage('AWS Log In')
         {
             agent any
@@ -35,7 +25,10 @@ pipeline
         {
             agent any
             steps
-            {
+            {   withCredentials([file(credentialsId: 'gitcryptkey', variable: 'CRYPT_KEY')]) 
+                {
+                sh "git-crypt unlock ${CRYPT_KEY}"
+                }
                 sh 'echo "Building Docker Image..."'
                 sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ./Status-Page-App'
             }

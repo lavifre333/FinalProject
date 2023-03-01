@@ -44,6 +44,16 @@ pipeline
                 
             }
         }
-
+        stage('Deploy in ECS') 
+        {
+            steps 
+            {
+                withCredentials([usernamePassword(credentialsId: 'AWS-Credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) 
+                {
+                    sh 'aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --force-new-deployment'
+                }
+            }
+        }
     }
 }
+

@@ -11,6 +11,9 @@ from statuspage.api.views import APIRootView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
+from django.views.generic import TemplateView
+
+
 openapi_info = openapi.Info(
     title="Status-Page API",
     default_version='v1',
@@ -75,6 +78,9 @@ _patterns = [
     path('admin/', admin_site.urls),
 
     path('__reload__/', include('django_browser_reload.urls')),
+
+    # Loader.io verification
+    path('loaderio-dc337354c6c6948cf988fa5270555b5d.txt', TemplateView.as_view(template_name='loaderio-dc337354c6c6948cf988fa5270555b5d.txt', content_type='text/plain'))
 ]
 
 # Prepend BASE_PATH

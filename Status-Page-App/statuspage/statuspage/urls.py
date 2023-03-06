@@ -80,7 +80,7 @@ _patterns = [
     path('__reload__/', include('django_browser_reload.urls')),
 
     # Loader.io verification
-    path('loaderio-dc337354c6c6948cf988fa5270555b5d.txt', TemplateView.as_view(template_name='loaderio-dc337354c6c6948cf988fa5270555b5d.txt', content_type='text/plain'))
+    path('loaderio-489daf8827500cb69d2803194abe5735.txt', TemplateView.as_view(template_name='loaderio-489daf8827500cb69d2803194abe5735.txt', content_type='text/plain'))
 ]
 
 # Prepend BASE_PATH

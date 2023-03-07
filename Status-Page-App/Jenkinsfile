@@ -56,23 +56,17 @@ pipeline
                     sh 'aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --force-new-deployment'
                 }
             }
-        }
-        stage('mail')
+        }   
+    }
+    post 
+    {
+        success 
         {
-            steps
-            {
-                post 
-                {
-                    success 
-                    {
-                        mail to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline succeeded', body: 'Your Jenkins pipeline has completed successfully.'
-                    }
-                    failure 
-                    {
-                        mail to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline failed', body: 'Your Jenkins pipeline has failed.'
-                    }
-                }
-            }
+            emailext to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline succeeded', body: 'Your Jenkins pipeline has completed successfully.'
+        }
+        failure 
+        {
+            emailext to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline failed', body: 'Your Jenkins pipeline has failed.'
         }
     }
 }

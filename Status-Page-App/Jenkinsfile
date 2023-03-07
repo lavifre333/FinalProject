@@ -59,15 +59,18 @@ pipeline
         }
         stage('mail')
         {
-            post 
+            steps
             {
-                success 
+                post 
                 {
-                    mail to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline succeeded', body: 'Your Jenkins pipeline has completed successfully.'
-                }
-                failure 
-                {
-                    mail to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline failed', body: 'Your Jenkins pipeline has failed.'
+                    success 
+                    {
+                        mail to: 'recipient@example.com', subject: 'Jenkins pipeline succeeded', body: 'Your Jenkins pipeline has completed successfully.'
+                    }
+                    failure 
+                    {
+                        mail to: 'recipient@example.com', subject: 'Jenkins pipeline failed', body: 'Your Jenkins pipeline has failed.'
+                    }
                 }
             }
         }

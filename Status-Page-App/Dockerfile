@@ -1,16 +1,21 @@
-
 FROM python:3
 
-ENV DJANGO_SUPERUSER_EMAIL=test@test.com
-ENV DJANGO_SUPERUSER_PASSWORD=testpass1234
+# install nginx
+RUN apt-get update && apt-get install nginx -y 
+
+COPY ./contrib/nginx.conf /etc/nginx/sites-available/status-page.conf
+# link nginx logs to container stdout
+RUN rm /etc/nginx/sites-enabled/default && \
+ln -s /etc/nginx/sites-available/status-page.conf /etc/nginx/sites-enabled/status-page.conf
 
 WORKDIR /opt/status-page
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
 COPY . .
 
-RUN bash ./upgrade.sh && python -m venv /opt/status-page/venv && python ./statuspage/manage.py createsuperuser --no-input --username user-1
+RUN chmod +x entrypoint.sh &&\
+    bash ./upgrade.sh
 
-CMD [ "python", "./statuspage/manage.py", "runserver", "0.0.0.0:80", "--insecure"]
+EXPOSE 80
+
+# execute our entrypoint.sh file
+CMD ["./entrypoint.sh"]

@@ -57,4 +57,15 @@ pipeline
             }
         }
     }
+    post 
+    {
+        success 
+        {
+            emailext to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline succeeded', body: 'Your Jenkins pipeline has completed successfully.'
+        }
+        failure 
+        {
+            emailext to: 'emailforfpjenkins@gmail.com', subject: 'Jenkins pipeline failed', body: 'Your Jenkins pipeline has failed.'
+        }
+    }
 }
